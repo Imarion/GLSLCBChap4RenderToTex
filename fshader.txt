@@ -1,0 +1,57 @@
+#version 430
+
+in vec4 Position;
+in vec3 Normal;
+in vec2 TexCoord;
+
+layout (binding=0) uniform sampler2D Tex1;
+
+struct LightInfo {
+    vec4 Position;  // Light position in eye coords
+    vec3 Intensity; // Light intensity
+};
+
+uniform LightInfo Light;
+
+struct MaterialInfo {
+    vec3  Ka;        // Ambient  reflectivity
+    vec3  Kd;        // Diffuse  reflectivity
+    vec3  Ks;        // Specular reflectivity
+    float Shininess; // Specular shininess factor
+};
+
+uniform MaterialInfo Material;
+
+out vec4 FragColor;
+
+void phongModel( vec4 position, vec3 normal, out vec3 ambAndDiff, out vec3 spec ) {
+    vec3 s         = normalize(vec3(Light.Position - position));
+    vec3 v         = normalize(-position.xyz); // In eyeCoords, the viewer is at the origin -> only take negation of eyeCoords vector
+    vec3 r         = reflect (-s, normal);
+
+    float sDotN    = max(dot(s, normal), 0.0);
+
+    vec3  ambient  = Light.Intensity * Material.Ka;
+    vec3  diffuse  = Light.Intensity * Material.Kd * sDotN;
+
+    ambAndDiff = ambient + diffuse;
+    spec       = vec3(0.0);
+    if (sDotN > 0.0) {
+        spec = Light.Intensity * Material.Ks * pow(max(dot(r,v), 0.0), Material.Shininess);
+    }
+
+}
+
+void main()
+{
+    vec3 ambAndDiff, spec;
+
+    if( gl_FrontFacing ) {
+        phongModel(Position, Normal, ambAndDiff, spec);
+    } else {
+        phongModel(Position, -Normal, ambAndDiff, spec);
+    }
+
+    vec4 texColor = texture(Tex1, TexCoord);
+    FragColor     = (vec4(ambAndDiff, 1.0) * texColor) + vec4(spec, 1.0);
+}
