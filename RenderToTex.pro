@@ -10,11 +10,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     RenderToTex.cpp \
-    vbocube.cpp
+    vbocube.cpp \
+    teapot.cpp
 
 HEADERS += \
     RenderToTex.h \
-    vbocube.h
+    vbocube.h \
+    teapot.h \
+    teapotdata.h
 
 OTHER_FILES += \
     fshader.txt \
