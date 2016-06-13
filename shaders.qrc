@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>fshader.txt</file>
-        <file>vshader.txt</file>
+        <file>fshader_fromtexture.txt</file>
+        <file>vshader_fromtexture.txt</file>
+        <file>fshader_totexture.txt</file>
+        <file>vshader_totexture.txt</file>
     </qresource>
 </RCC>

@@ -14,6 +14,7 @@
 
 #include "vbocube.h"
 #include "teapot.h"
+#include "vboplane.h"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -44,11 +45,12 @@ private:
     void CreateVertexBuffer();
     void setupFBO();
     void initMatrices();
+    void calcProjectorMatrix();
 
     void PrepareTexture(GLenum TextureUnit, GLenum TextureTarget, const QString& FileName, bool flip);
 
     void renderToTexture();
-    void renderScene();
+    void renderScene();       
 
 protected:
     void resizeEvent(QResizeEvent *);
@@ -57,7 +59,7 @@ private:
     QOpenGLContext *mContext;
     QOpenGLFunctions_4_3_Core *mFuncs;
 
-    QOpenGLShaderProgram *mProgram;
+    QOpenGLShaderProgram *mProgramFromTex, *mProgramToTex;
 
     QTimer mRepaintTimer;
     double currentTimeMs;
@@ -65,11 +67,14 @@ private:
     bool   mUpdateSize;
     float  tPrev, angle, rotSpeed;
 
-    GLuint mVAOCube, mVAOTeapot, mVBO, mIBO, mFBO;
+    GLuint mVAOCube, mVAOTeapot, mVAOPlane, mVBO, mIBO, mFBO;
 
     VBOCube  *mCube;
     Teapot   *mTeapot;
-    QMatrix4x4 ModelMatrixCube, ModelMatrixTeapot, ViewMatrix, ProjectionMatrix;
+    VBOPlane *mPlane;
+    QMatrix4x4 ModelMatrixCube, ModelMatrixTeapot, ModelMatrixPlane, ViewMatrix, ProjectionMatrix;
+    QMatrix4x4 mProjectorMatrix;
+    QVector3D  mProjLookat;
 
     //debug
     void printMatrix(const QMatrix4x4& mat);

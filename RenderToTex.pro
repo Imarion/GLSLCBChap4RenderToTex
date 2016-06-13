@@ -11,21 +11,27 @@ TEMPLATE = app
 SOURCES += main.cpp \
     RenderToTex.cpp \
     vbocube.cpp \
-    teapot.cpp
+    teapot.cpp \
+    vboplane.cpp
 
 HEADERS += \
     RenderToTex.h \
     vbocube.h \
     teapot.h \
-    teapotdata.h
+    teapotdata.h \
+    vboplane.h
 
 OTHER_FILES += \
-    fshader.txt \
-    vshader.txt
+    fshader_fromtexture.txt \
+    vshader_fromtexture.txt \
+    fshader_totexture.txt \
+    vshader_totexture.txt
 
 RESOURCES += \
     shaders.qrc
 
 DISTFILES += \
-    fshader.txt \
-    vshader.txt
+    fshader_fromtexture.txt \
+    vshader_fromtexture.txt \
+    fshader_totexture.txt \
+    vshader_totexture.txt
