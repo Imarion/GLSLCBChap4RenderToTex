@@ -474,7 +474,7 @@ void MyWindow::renderScene()
         mProgramFromTex->setUniformValue("MVP", projection * mv1);
 
 
-        glDrawElements(GL_TRIANGLES, 6 * mCube->getnFaces(), GL_UNSIGNED_INT, ((GLubyte *)NULL + (0)));
+        glDrawElements(GL_TRIANGLES, mCube->getnFaces(), GL_UNSIGNED_INT, ((GLubyte *)NULL + (0)));
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);

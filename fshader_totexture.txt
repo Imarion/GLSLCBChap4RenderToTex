@@ -20,7 +20,7 @@ struct LightInfo {
 };
 uniform LightInfo Light;
 
-out vec4 FragColor;
+layout(location = 0) out vec4 FragColor;
 
 vec3 phongModel( vec3 pos, vec3 norm ) {
     vec3 s = normalize(vec3(Light.Position) - pos);
